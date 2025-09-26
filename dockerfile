@@ -4,6 +4,12 @@ FROM python:3.13-slim
 # Set working directory
 WORKDIR /app
 
+# Create a virtual environment inside the container
+RUN python -m venv /opt/venv
+
+# Activate it for all future RUN/CMD instructions
+ENV PATH="/opt/venv/bin:$PATH"
+
 # Copy requirements first (for caching)
 COPY requirements.txt .
 

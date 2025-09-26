@@ -46,17 +46,14 @@ def read_root():
 def test_endpoint():
     return {"status": "FastAPI is working!"}
 
-# @app.get("/")
-# def read_root():
-#     return {"message": "Welcome to ReserveNow API"}
 
-# @app.get("/all-users")
-# def all_users():
-#     cursor = mysql_conn.cursor(dictionary=True)
-#     cursor.execute("SELECT * FROM users")
-#     users = cursor.fetchall()
-#     cursor.close()
-#     return {"users": users}
+@app.get("/all-users")
+def all_users():
+    cursor = mysql_conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM users")
+    users = cursor.fetchall()
+    cursor.close()
+    return {"users": users}
 
 
 # # --- Display all MySQL resources ---
