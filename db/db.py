@@ -1,9 +1,10 @@
 import time
+import os
 import mysql.connector
 from pymongo import MongoClient
-import os
 
-# MYSQL
+# --- MySQL Connection ---
+mysql_conn = None
 for i in range(10):
     try:
         mysql_conn = mysql.connector.connect(
@@ -12,17 +13,23 @@ for i in range(10):
             password=os.environ["MYSQL_PASSWORD"],
             database=os.environ["MYSQL_DATABASE"]
         )
+        print("Connected to MySQL")
         break
-    except mysql.connector.Error:
-        print("Waiting for MySQL...")
+    except mysql.connector.Error as e:
+        print("Waiting for MySQL}")
         time.sleep(3)
 
-# Mongo DB
+# --- MongoDB Connection ---
+mongo_client = None
 for i in range(10):
     try:
         mongo_client = MongoClient(os.environ["MONGO_URI"])
-        mongo_client.admin.command('ping')
+        mongo_client.admin.command("ping")
+        print("Connected to MongoDB")
         break
-    except Exception:
-        print("Waiting for MongoDB...")
+    except Exception as e:
+        print("Waiting for MongoDB")
         time.sleep(3)
+        
+resource_details_collection = mongo_client["bed-ca-1"]["resource_details"]
+

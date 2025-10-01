@@ -1,0 +1,4 @@
+Docker Volumes (look into that)
+
+single container applications are a bad idea.
+
