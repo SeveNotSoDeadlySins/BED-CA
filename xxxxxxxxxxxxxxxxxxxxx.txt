@@ -3,3 +3,6 @@ Docker Volumes (look into that)
 single container applications are a bad idea.
 
 docker exec -it fastapi_app python -m seeder.seed_users
+
+
+https://stackoverflow.com/questions/9594125/salt-and-hash-a-password-in-python

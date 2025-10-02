@@ -1,5 +1,11 @@
 from db.db import mysql_conn
 import datetime
+import bcrypt
+
+def hash_password(plain_password: str, rounds: int = 12) -> str:
+    hashed = bcrypt.hashpw(plain_password.encode('utf-8'), bcrypt.gensalt(rounds))
+    
+    return hashed.decode('utf-8')
 
 def seed_users():
     cursor = mysql_conn.cursor()
@@ -10,7 +16,7 @@ def seed_users():
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(100),
             email VARCHAR(100),
-            password VARCHAR(100),
+            password VARCHAR(255),
             created_at DATETIME,
             updated_at DATETIME
         )
@@ -18,16 +24,22 @@ def seed_users():
 
     # Insert sample rows
     users = [
-        ("Alice", "alice@example.com", "password123", datetime.datetime.now(), datetime.datetime.now()),
-        ("Bob", "bob@example.com", "secure456", datetime.datetime.now(), datetime.datetime.now()),
-        ("Jeff", "jeff@example.com", "pass15t3", datetime.datetime.now(), datetime.datetime.now()),
-
+        ("Alice", "alice@example.com", "password123"),
+        ("Bob", "bob@example.com", "secure456"),
+        ("Jeff", "jeff@example.com", "pass15t3"),
     ]
+
+    time = datetime.datetime.now()
+    users_hashed_password = []
+
+    for name,email,plain_pw in users:
+        hashed = hash_password(plain_pw)
+        users_hashed_password.append((name, email, hashed, time, time))
 
     cursor.executemany("""
         INSERT INTO users (name, email, password, created_at, updated_at)
         VALUES (%s, %s, %s, %s, %s)
-    """, users)
+    """, users_hashed_password)
 
     print(cursor.rowcount, "rows inserted")
 
