@@ -2,3 +2,4 @@ Docker Volumes (look into that)
 
 single container applications are a bad idea.
 
+docker exec -it fastapi_app python -m seeder.seed_users

@@ -34,3 +34,6 @@ def seed_users():
     mysql_conn.commit()
     print("Users table seeded successfully!")
     cursor.close()
+
+if __name__ == "__main__":
+    seed_users()
