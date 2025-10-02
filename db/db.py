@@ -13,7 +13,8 @@ for i in range(10):
             password=os.environ["MYSQL_PASSWORD"],
             database=os.environ["MYSQL_DATABASE"]
         )
-        print("Connected to MySQL")
+        print("Connecting to MySQL at", os.environ.get("MYSQL_HOST"), "DB:", os.environ.get("MYSQL_DATABASE"))
+
         break
     except mysql.connector.Error as e:
         print("Waiting for MySQL}")

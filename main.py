@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from db.db import mysql_conn, mongo_client
-from db.db import mysql_conn, mongo_client, resource_details_collection
 
 
 app = FastAPI()

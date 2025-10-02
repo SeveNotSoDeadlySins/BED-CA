@@ -3,7 +3,7 @@ import datetime
 
 def seed_users():
     cursor = mysql_conn.cursor()
-
+    print("In the seeder file")
     # Create table if not exists
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
@@ -28,6 +28,8 @@ def seed_users():
         INSERT INTO users (name, email, password, created_at, updated_at)
         VALUES (%s, %s, %s, %s, %s)
     """, users)
+
+    print(cursor.rowcount, "rows inserted")
 
     mysql_conn.commit()
     print("Users table seeded successfully!")
