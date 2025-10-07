@@ -1,6 +1,10 @@
 fastapi
 uvicorn[standard]
-mysql-connector-python
+sqlalchemy
+pymysql
 pymongo
 python-dotenv
-bcrypt
+passlib==1.7.4 # make it compatible with bycrypt
+bcrypt<4.0
+cryptography
+

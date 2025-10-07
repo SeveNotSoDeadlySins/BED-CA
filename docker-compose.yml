@@ -10,16 +10,17 @@ services:
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
-      MYSQL_PASSWORD: example
+      MYSQL_PASSWORD: password
       MYSQL_DATABASE: bed-ca-1
       MONGO_URI: mongodb://mongodb:27017/
+    entrypoint: sh -c "/app/wait_for_mysql.sh uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   mysql:
     image: mysql:8.0
     container_name: mysql_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: bed-ca-1
     ports:
       - "3306:3306"
@@ -43,7 +44,8 @@ services:
       - "8080:80"
     environment:
       PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: example  
+      MYSQL_ROOT_PASSWORD: password  
+
 
 volumes:
   mysql_data:
